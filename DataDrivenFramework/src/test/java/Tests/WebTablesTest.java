@@ -1,6 +1,7 @@
 package Tests;
 
 import Base.BaseTest;
+import Pages.LoginPage;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
@@ -18,10 +19,19 @@ public class WebTablesTest extends BaseTest {
         driver.manage().window().maximize();
         driver.navigate().to("https://the-internet.herokuapp.com/login");
 
+        loginPage=new LoginPage(driver);
+
     }
 
     @Test (priority = 1)
-    public void test1(){
+    public void loginValidCredentials(){
+
+        String validUsername= excelReader.getStringData("Sheet1",1,0);
+        String validPassword= excelReader.getStringData("Sheet1",1,1);
+
+        loginPage.inputUsername(validUsername);
+        loginPage.inputPassword(validPassword);
+        loginPage.clickLogin();
 
     }
 }
